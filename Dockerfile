@@ -51,9 +51,7 @@ RUN wget --quiet https://releases.hashicorp.com/terraform/0.13.3/terraform_0.13.
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
         unzip awscliv2.zip && \
         ./aws/install && \
-        rm awscliv2.zip && rm -rf aws && \
-        mkdir /home/runner/.aws && echo "[default]"$'\n'"region = $AWS_REGION" > /home/runner/.aws/config && \
-        echo "[default]"$'\n'"aws_access_key_id = $AWS_ACCESS_KEY"$'\n'"aws_secret_access_key = $AWS_SECRET_ACCESS" > /home/runner/.aws/credentials
+        rm awscliv2.zip && rm -rf aws
 
 # Install and config Docker
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
@@ -71,5 +69,5 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v2.273.6/acti
         rm actions-runner-linux-x64-2.273.6.tar.gz
 
 # Exec runner
-RUN chown runner:runner * /runner
+RUN chown -R runner:runner /runner /home/runner
 USER runner
