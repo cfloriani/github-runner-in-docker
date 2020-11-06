@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+    runner-1:
+        image: cfloriani/github-runner-in-docker:latest
+        environment: 
+            - AWS_REGION=<CHANGE-ME>
+            - AWS_ACCESS_KEY=<CHANGE-ME>
+            - AWS_SECRET_ACCESS=<CHANGE-ME>
+            - GITHUB_REPO_URL=<CHANGE-ME>
+            - GITHUB_RUNNER_NAME=runner-2
+            - GITHUB_RUNNER_TOKEN=<CHANGE-ME>
+            - GITHUB_RUNNER_WORKDIR=/runner/work
+            - GITHUB_ORG_RUNNER=false
+            - GITHUB_LABELS=linux,x64
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./work:/runner/work:rw
+        command: bash -c "
+            /runner/config.sh --url $$GITHUB_REPO_URL --token $$GITHUB_RUNNER_TOKEN --work $$GITHUB_RUNNER_WORKDIR --labels $$GITHUB_LABELS --name $$GITHUB_RUNNER_NAME --replace &&
+            /runner/run.sh
+            "
+
+    runner-2:
+        image: cfloriani/github-runner-in-docker:latest
+        environment: 
+            - AWS_REGION=<CHANGE-ME>
+            - AWS_ACCESS_KEY=<CHANGE-ME>
+            - AWS_SECRET_ACCESS=<CHANGE-ME>
+            - GITHUB_REPO_URL=<CHANGE-ME>
+            - GITHUB_RUNNER_NAME=runner-2
+            - GITHUB_RUNNER_TOKEN=<CHANGE-ME>
+            - GITHUB_RUNNER_WORKDIR=/runner/work
+            - GITHUB_ORG_RUNNER=false
+            - GITHUB_LABELS=linux,x64
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./work:/runner/work:rw
+        command: bash -c "
+            /runner/config.sh --url $$GITHUB_REPO_URL --token $$GITHUB_RUNNER_TOKEN --work $$GITHUB_RUNNER_WORKDIR --labels $$GITHUB_LABELS --name $$GITHUB_RUNNER_NAME --replace &&
+            /runner/run.sh
+            "
