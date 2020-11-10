@@ -14,7 +14,9 @@ To work with multiple simultaneous runners you must duplicate the service block 
 
 # Create Link for folders  
   
-ln -s /runner/work/_temp/_github_home /github/home  
-ln -s /runner/work/_temp/_runner_file_commands /github/file_commands  
-ln -s /runner/work/syndikos/syndikos /github/workspace  
-ln -s /home/ubuntu/github-runner-in-docker/work /runner/work  
+Create Link symbol for volumes in host  
+
+ln -s /runner/work1/_temp/_github_home /github/home  
+ln -s /runner/work1/_temp/_runner_file_commands /github/file_commands  
+ln -s /runner/work1/syndikos/syndikos /github/workspace  
+ln -s /home/PATH/TO/work1 /runner/work  
