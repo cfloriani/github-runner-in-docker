@@ -19,7 +19,7 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./entrypoint.sh:/entrypoint.sh:ro
-            - ./work:/runner/work:rw
+            - ./work1:/runner/work:rw
         entrypoint: /entrypoint.sh
 
     runner-2:
@@ -40,5 +40,5 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./entrypoint.sh:/entrypoint.sh:ro
-            - ./work:/runner/work:rw
+            - ./work2:/runner/work:rw
         entrypoint: /entrypoint.sh        
