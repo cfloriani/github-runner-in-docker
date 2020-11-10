@@ -2,8 +2,9 @@ version: "3"
 
 services:
     runner-1:
-        image: cfloriani/github-runner-in-docker:latest
-        environment: 
+        build:
+            context: .
+            args:    
             - AWS_REGION=<<CHANGE-ME>>
             - AWS_ACCESS_KEY=<<CHANGE-ME>>
             - AWS_SECRET_ACCESS=<<CHANGE-ME>>
@@ -13,14 +14,18 @@ services:
             - GITHUB_RUNNER_WORKDIR=/runner/work
             - GITHUB_ORG_RUNNER=false
             - GITHUB_LABELS=linux,x64
+            - GITHUB_RUNNER_VERSION=2.274.1
+        restart: always
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./entrypoint.sh:/entrypoint.sh:ro
+            - ./work:/runner/work:rw
         entrypoint: /entrypoint.sh
 
     runner-2:
-        image: cfloriani/github-runner-in-docker:latest
-        environment: 
+        build:
+            context: .
+            args:    
             - AWS_REGION=<<CHANGE-ME>>
             - AWS_ACCESS_KEY=<<CHANGE-ME>>
             - AWS_SECRET_ACCESS=<<CHANGE-ME>>
@@ -30,7 +35,10 @@ services:
             - GITHUB_RUNNER_WORKDIR=/runner/work
             - GITHUB_ORG_RUNNER=false
             - GITHUB_LABELS=linux,x64
+            - GITHUB_RUNNER_VERSION=2.274.1
+        restart: always
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./entrypoint.sh:/entrypoint.sh:ro
-        entrypoint: /entrypoint.sh
+            - ./work:/runner/work:rw
+        entrypoint: /entrypoint.sh        
